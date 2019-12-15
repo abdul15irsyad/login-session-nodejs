@@ -19,8 +19,6 @@ app.use(session({
 
 app.use('/auth', auth)
 app.use((req,res,next)=>!req.session.loggedIn ? res.redirect('/auth/login') : next())
-app.get('/',(req,res)=>{
-  res.send(`welcome ${req.session.username}`)
-})
+app.get('/',(req,res)=>res.render('home',{username:req.session.username}))
 
 app.listen(port,()=>console.log(`server running on http://localhost:${port}`))

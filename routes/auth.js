@@ -3,6 +3,12 @@ const app = express()
 const path = require('path')
 let db = require('../connect')
 
+// logout action
+app.get('/logout',(req,res)=>{
+  req.session.destroy()
+  res.redirect('/')
+})
+
 // middleware
 app.use((req,res,next)=>req.session.loggedIn ? res.redirect('/') : next())
 
