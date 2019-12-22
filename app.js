@@ -19,6 +19,7 @@ app.use(session({
 
 app.use('/auth', auth)
 app.use((req,res,next)=>!req.session.loggedIn ? res.redirect('/auth/login') : next())
-app.get('/',(req,res)=>res.render('home',{username:req.session.username}))
+app.get('/',(req,res)=>res.render('home',{username:req.session.username,fullname:req.session.fullname}))
+app.get('*',(req,res)=>res.send('404 not found'))
 
 app.listen(port,()=>console.log(`server running on http://localhost:${port}`))

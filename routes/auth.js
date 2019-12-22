@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+const crypto = require('crypto')
 let db = require('../connect')
 
 // logout action
@@ -23,9 +24,11 @@ app.post('/login',(req,res)=>{
   var username = req.body.username
   var password = req.body.password
   if(username&&password){
+    password = crypto.createHash('sha256').update(password).digest('hex')
     db.query("SELECT * FROM tb_user WHERE username=? AND password=?",[username,password],(err,result)=>{
       if(result.length > 0){
         req.session.loggedIn = true
+        req.session.fullname = result[0].fullname
         req.session.username = username
         res.redirect('/')
       }else{
@@ -43,6 +46,7 @@ app.post('/signup',(req,res)=>{
   var username = req.body.username
   var password = req.body.password
   if(fullname&&username&&password){
+    password = crypto.createHash('sha256').update(password).digest('hex')
     db.query("INSERT INTO tb_user(fullname,username,password) VALUES(?,?,?)",[fullname,username,password],(err,result)=>{
       if(!err){
         req.session.loggedIn = true

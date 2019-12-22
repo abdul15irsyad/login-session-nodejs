@@ -7,9 +7,6 @@ let db = mysql.createConnection({
   database  : "db_loginsession"
 });
 
-db.connect((err)=>{
-  if (err) throw err;
-  console.log("Database connected");
-});
+db.connect((err)=>err ? console.log(err) : console.log("Database connected"))
 
 module.exports = db;
