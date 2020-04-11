@@ -2,10 +2,11 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const crypto = require('crypto')
-let db = require('../connect')
+const db = require('../connect')
 
 // logout action
 app.get('/logout',(req,res)=>{
+  console.log(`${req.session.username} has logged out`)
   req.session.destroy()
   res.redirect('/')
 })
@@ -29,7 +30,9 @@ app.post('/login',(req,res)=>{
       if(result.length > 0){
         req.session.loggedIn = true
         req.session.fullname = result[0].fullname
-        req.session.username = username
+        req.session.username = result[0].username
+        res.cookie('userData',result[0])
+        console.log(`${result[0].username} has logged in`)
         res.redirect('/')
       }else{
         res.redirect('/auth/login')
@@ -50,7 +53,9 @@ app.post('/signup',(req,res)=>{
     db.query("INSERT INTO tb_user(fullname,username,password) VALUES(?,?,?)",[fullname,username,password],(err,result)=>{
       if(!err){
         req.session.loggedIn = true
+        req.session.fullname = fullname
         req.session.username = username
+        console.log(`${req.session.username} has signed up`)
         res.redirect('/')
       }else{
         console.log(err)
