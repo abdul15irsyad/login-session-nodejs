@@ -1,7 +1,10 @@
 html
-  head
-    title Home
+  include template/head.pug
   body
-    h3 Hi, #{user.fullname}
-    p #{user.username}
-    a(href="auth/logout") Logout
+    .container.py-3
+      .row
+        .col
+          h2 Hi, #{user.fullname}
+          p.text-primary #{user.username}
+          a.btn.btn-danger(href="auth/logout") Logout
+    include template/foot.pug

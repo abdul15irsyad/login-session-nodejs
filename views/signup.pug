@@ -1,13 +1,21 @@
 html
-  head
-    title Sign Up
+  include template/head.pug
   body
-    form(action="signup",method="POST")
-      input(name="fullname",type="text",placeholder="Full Name")
-      br
-      input(name="username",type="text",placeholder="Username")
-      br
-      input(name="password",type="password",placeholder="Password")
-      br
-      input(type="submit",value="Sign Up")
-    a(href="login") Login
+    .container.py-3
+      .row.justify-content-center
+        .col-md-5.col-lg-4
+          h2.text-center Sign Up
+          form(action="signup",method="POST")
+            .form-group
+              label(for="fullname") Fullname
+              input.form-control(name="fullname",id="fullname",type="text",placeholder="Fullname")
+            .form-group
+              label(for="username") Username
+              input.form-control(name="username",id="username",type="text",placeholder="Username")
+            .form-group
+              label(for="password") Password
+              input.form-control(name="password",id="password",type="password",placeholder="Password")
+            input.btn.btn-block.btn-primary(type="submit",value="Sign Up")
+          p.text-center already have account? 
+            a(href="login") Login
+    include template/foot.pug

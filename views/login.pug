@@ -1,11 +1,23 @@
 html
-  head
-    title Login
+  include template/head.pug
   body
-    form(action="login",method="POST")
-      input(name="username",type="text",placeholder="Username")
-      br
-      input(name="password",type="password",placeholder="Password")
-      br
-      input(type="submit",value="Login")
-    a(href="signup") Sign Up
+    .container.py-3
+      .row.justify-content-center
+        .col-md-5.col-lg-4
+          h2.text-center Login
+          form(action="login",method="POST")
+            .form-group
+              label(for="username") Username
+              input.form-control(name="username",type="text",placeholder="Username")
+            .form-group
+              label(for="password") Password
+              input.form-control(name="password",type="password",placeholder="Password")
+            input.btn.btn-block.btn-primary(type="submit",value="Login")
+          p.text-center didnt have account? 
+            a(href="signup") Sign Up
+          hr
+          a.btn.btn-block.btn-login-google(href='login/google') 
+            span Login With Google&nbsp;
+            i.fab.fa-fw.fa-google
+    include template/foot.pug
+          
